@@ -1,7 +1,6 @@
 package com.scholanova.ecommerce.cart.controller;
 
 import com.scholanova.ecommerce.cart.entity.Cart;
-import com.scholanova.ecommerce.cart.exception.CartException;
 import com.scholanova.ecommerce.cart.repository.CartRepository;
 import com.scholanova.ecommerce.cart.service.CartService;
 import org.springframework.data.domain.Pageable;
@@ -36,12 +35,12 @@ public class CartController {
     public Cart createCart() { return cartRepository.save(new Cart()); }
 
     @PostMapping("/{id}/items")
-    public Cart addProductToCart(@PathVariable("id)") Cart cart, @RequestBody ItemWithQuantity payload) throws CartException {
+    public Cart addProductToCart(@PathVariable("id)") Cart cart, @RequestBody ItemWithQuantity payload) {
         return cartService.addProductToCart(cart, payload.productId, payload.quantity);
     }
 
     @PutMapping("/{cartid}/items/{productId}/quantity")
-    public Cart changeProductQuantity(@PathVariable("cartId") Cart cart, @PathVariable("productId") Long productId, @RequestBody int quantity) throws CartException {
+    public Cart changeProductQuantity(@PathVariable("cartId") Cart cart, @PathVariable("productId") Long productId, @RequestBody int quantity) {
         return cartService.changeProductQuantity(cart, productId, quantity);
     }
 
